@@ -2,7 +2,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 sigma = 1
-epsilon = 3
+epsilon = 1
 
 r = np.linspace(0.9, 3, 1000)
 u = 4 * epsilon * ((sigma/r)**12 - (sigma/r)**6)
@@ -32,11 +32,11 @@ for i in range(len(u)):
 
 
 plt.grid()
-plt.xlabel("r$\sigma$")
+plt.xlabel("r [$\sigma$]")
 y = plt.ylabel("V [J/C]")
-plt.title("Lennard-Jones potential \n $\sigma$ = 1")
+plt.title("Lennard-Jones potential \n $\sigma$ = 1 og $\epsilon$ = 1")
 plt.xlim((0.8,3))
-plt.ylim((-3.2, 7))
+plt.ylim((-1.5, 7))
 plt.show()
 
 #sigma = [ 1.5, 0.95]

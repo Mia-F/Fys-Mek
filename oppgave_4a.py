@@ -5,11 +5,11 @@ import math
 
 sigma = 1
 
-#n = 3
-#L = 5.1
+n = 3
+L = 5.1
 
-n=4
-L = 6.8
+#n=4
+#L = 6.8
 
 #n=5
 #L = 8.5
@@ -18,8 +18,8 @@ m_atomes = posisjon(n,L)
 n_atom = len(m_atomes)
 #n_atom = 2
 
-n = 500
-T = 5
+n = 1000
+T = 20
 dt = T/n
 t = np.linspace(0,T, n)
 
@@ -33,10 +33,10 @@ A = np.zeros(len(t))
 ms = np.zeros(len(t))
 
 T_0 = 119.7
-Temp_0 = 300 #175
+Temp_0 = 174
 
 A[0] = 1
-#x[0] = m_atomes
+x[0] = m_atomes
 #x[0] = [[0,0,0],[1.5,0,0]]
 """
 x0 = []
@@ -65,8 +65,8 @@ infile.close()
 """
 
 Temp_[0] = Temp_0/T_0
-#v0 = np.random.normal(0, math.sqrt(Temp_[0]), size=(n_atom,3))
-#v[0] = v0
+v0 = np.random.normal(0, math.sqrt(Temp_[0]), size=(n_atom,3))
+v[0] = v0
 
 def akselerasjon(x,v):
     a = np.zeros((len(x), len(x),3))
@@ -75,7 +75,7 @@ def akselerasjon(x,v):
     for i in range(len(x)):
         for j in range(i+1,len(x)):
             dr = x[i] - x[j]
-            #dr = dr - np.round(dr/L)*L
+            dr = dr - np.round(dr/L)*L
             r = np.linalg.norm(dr)
             p += 4 *((1/r)**(12) - (1/r)**(6)) - lj3
             if r < 3*sigma:
@@ -110,24 +110,34 @@ for i in range(n-1):
 
 Temp = Temp_*T_0
 a_Temp = np.average(Temp)
-print(f"Den gennomsnittlige tempraturen er {a_Temp:.2f}")
-
+print(f"Den gennomsnittlige tempraturen er {a_Temp:.2f}K")
 line = np.zeros(len(t))
 for i in range(len(t)):
     line[i] = 94.4
 
+
+D = np.trapz(A, t)/3
+print(f"D = {D}")
+
+
+
 plt.plot(t,A)
+plt.title("A")
 plt.show()
 
-plt.plot(t,Temp)
-plt.plot(t,line)
+plt.title("Temperatur")
+plt.xlabel("Tid [t]")
+plt.ylabel("Temperatur [K]")
+plt.plot(t,Temp, label="Temperatur")
+plt.plot(t,line, label="94.4K")
+plt.legend()
 plt.show()
-
+"""
 plt.plot(t, ms)
 plt.show()
-
-print(x[-1])
-print(v[-1])
+"""
+#print(x[-1])
+#print(v[-1])
 
 if __name__ == "__main__":
     r = 3
